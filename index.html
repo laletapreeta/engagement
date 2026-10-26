@@ -146,7 +146,7 @@ body{
     <p class="venue">Avanya Resorts &amp; Retreat</p>
     <p class="near">Near SKP Engineering College, Tiruvannamalai</p>
     <div class="actions">
-      <a class="btn primary" href="https://maps.app.goo.gl/Mac7HMPoYKEZp4zP7" target="_blank" rel="noopener">
+      <a class="btn primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=AVANYA+resorts&amp;destination_place_id=ChIJIyevaADHrDsRWS4lShA8fzI" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
         Get directions</a>
       <span class="cal-menu">
@@ -229,8 +229,8 @@ body{
   if(d>1){cd.textContent=d+' days to go';cd.hidden=false}else if(d===1){cd.textContent='Tomorrow!';cd.hidden=false}else if(now<new Date('2026-12-14T13:30:00+05:30')){cd.textContent='Today!';cd.hidden=false}
 
   // Calendar
-  var title='Engagement of Laleta Preeta & Pradeep',loc='Avanya Resorts & Retreat, Near SKP Engineering College, Tiruvannamalai',url='https://engagement.laletapreeta.com',
-      det='Directions: https://maps.app.goo.gl/Mac7HMPoYKEZp4zP7\n'+url;
+  var title='Engagement of Laleta Preeta & Pradeep',loc='Avanya Resorts & Retreat, 64HH+23F, Sammanthanur Road, Kumarakudi, Tamil Nadu 606611',url='https://engagement.laletapreeta.com',
+      det='Directions: https://www.google.com/maps/dir/?api=1&destination=AVANYA+resorts&destination_place_id=ChIJIyevaADHrDsRWS4lShA8fzI\n'+url;
   document.getElementById('gcal').href='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(title)+'&dates=20261214T063000Z/20261214T080000Z&location='+encodeURIComponent(loc)+'&details='+encodeURIComponent(det);
   document.getElementById('ics').onclick=function(){
     var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//laletapreeta//engagement//EN','BEGIN:VEVENT','UID:engagement-20261214@laletapreeta.com','DTSTAMP:20261026T000000Z','DTSTART:20261214T063000Z','DTEND:20261214T080000Z','SUMMARY:'+title,'LOCATION:'+loc.replace(/,/g,'\\,'),'DESCRIPTION:'+det.replace(/\n/g,'\\n'),'URL:'+url,'END:VEVENT','END:VCALENDAR'].join('\r\n');

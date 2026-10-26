@@ -30,6 +30,8 @@
      phones, so the longest line, LALETA PREETA, still fits) so text stays readable. */
   --g:calc(min(760px, 100vw) / 1500);
   --u:max(var(--g), min(0.45px, (100vw - 60px) / 680));
+  /* names + qualifications: shrink on phones so each stays on one line; both names use the same size */
+  --n:min(var(--u), (min(760px, 100vw) - 60px) / 1040);
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -63,12 +65,12 @@ body{
 .invite{font-style:italic; font-size:calc(34.67 * var(--u)); color:var(--ink); margin-top:calc(12.5 * var(--u))}
 .person{margin-top:calc(22.4 * var(--u))}
 .person.groom{margin-top:calc(3.4 * var(--u))}
-.name-line{display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; column-gap:calc(3 * var(--u)); color:var(--maroon)}
-.name{font-family:var(--caps); font-weight:400; font-size:calc(90 * var(--u)); line-height:1.2; margin:0}
-.quals{font-weight:700; font-size:calc(40 * var(--u)); line-height:1.2}
+.name-line{display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; column-gap:calc(3 * var(--n)); color:var(--maroon)}
+.name{font-family:var(--caps); font-weight:400; font-size:calc(90 * var(--n)); line-height:1.2; margin:0}
+.quals{font-weight:700; font-size:calc(40 * var(--n)); line-height:1.2}
 .name-line.wrapped .comma{display:none}
 .nw{white-space:nowrap}
-.role{font-style:italic; font-weight:700; font-size:calc(40 * var(--u)); color:var(--ink); margin-top:calc(-7.5 * var(--u))}
+.role{font-style:italic; font-weight:700; font-size:calc(40 * var(--u)); color:var(--ink); margin-top:calc(-7.5 * var(--n))}
 .name-line.wrapped + .role{margin-top:0}
 .role a{color:inherit; text-decoration:none; border-bottom:1px solid rgba(179,138,61,.5); padding-bottom:1px} .role a:hover{border-bottom-color:var(--gold-d)}
 .parents{font-weight:400; text-transform:uppercase; letter-spacing:.06em; font-size:calc(32 * var(--u)); color:var(--ink2); margin-top:calc(11.2 * var(--u))}

@@ -119,18 +119,21 @@ body{
 .menu-btn svg{width:1.45em; height:1.45em; color:var(--gold-d)}
 .menu-btn:hover{background:#FFF8EA; transform:translateY(-1px)}
 .menu-btn:focus-visible{outline:2px solid var(--gold-d); outline-offset:2px}
-.menu-dlg{border:0; padding:0; background:transparent; width:min(440px, calc(100vw - 32px)); max-width:none; color:var(--ink); overflow:visible}
+.menu-dlg{border:0; padding:0; background:transparent; width:min(440px, calc(100vw - 32px)); max-width:none; max-height:calc(100vh - 24px); max-height:calc(100dvh - 24px); overflow:auto; color:var(--ink)}
 .menu-dlg::backdrop{background:rgba(45,22,12,.5)}
 .menu-dlg[open]{animation:pop .25s ease}
 @keyframes pop{from{opacity:0; transform:translateY(8px) scale(.98)}to{opacity:1; transform:none}}
-.menu-card{position:relative; background:#F3E2BC url("paper.jpg") center/cover; padding:42px 30px 38px; text-align:center; box-shadow:0 30px 60px -20px rgba(40,20,5,.6)}
+.menu-card{position:relative; background:#F3E2BC url("paper.jpg") center/cover; padding:34px 22px 30px; text-align:center; box-shadow:0 30px 60px -20px rgba(40,20,5,.6)}
 .menu-card::before,.menu-card::after{content:""; position:absolute; pointer-events:none; border:1.4px solid var(--gold)}
 .menu-card::before{inset:8px} .menu-card::after{inset:13px; border-width:1px; opacity:.7}
-.menu-ta{font-family:var(--tamil); color:var(--gold-d); font-size:24px; line-height:1.3}
-.menu-card h3{font-family:var(--caps); font-weight:400; color:var(--maroon); font-size:26px; letter-spacing:.06em; margin:2px 0 0}
-.menu-card .divider{margin-top:12px}
-.menu-soon{font-style:italic; font-size:19px; margin-top:16px}
-.menu-x{position:absolute; top:16px; right:18px; z-index:2; width:40px; height:40px; border:0; background:none; font:inherit; font-size:30px; line-height:1; color:var(--gold-d); cursor:pointer}
+.menu-ta{font-family:var(--tamil); color:var(--gold-d); font-size:22px; line-height:1.3}
+.menu-card h3{font-family:var(--caps); font-weight:400; color:var(--maroon); font-size:24px; letter-spacing:.06em; margin:0}
+.menu-card .divider{margin-top:8px}
+.menu-list{list-style:none; padding:0; margin:0; font-weight:600; font-size:17.5px; line-height:1.38; color:var(--ink2)}
+.menu-card .divider + .menu-list{margin-top:10px}
+.menu-list + .menu-list::before{content:""; display:block; width:7px; height:7px; margin:6px auto; background:var(--gold); clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.menu-time{font-family:var(--caps); color:var(--gold-d); font-size:14px; letter-spacing:.1em; margin-top:2px}
+.menu-x{position:absolute; top:12px; right:14px; z-index:2; width:40px; height:40px; border:0; background:none; font:inherit; font-size:30px; line-height:1; color:var(--gold-d); cursor:pointer}
 .menu-x:focus-visible{outline:2px solid var(--gold-d); outline-offset:-4px}
 .sched .dm{width:calc(14 * var(--u)); height:calc(14 * var(--u)); min-width:6px; min-height:6px; align-self:center; justify-self:center}
 .foot{position:relative; z-index:5; font-weight:700; color:var(--gold-d); letter-spacing:.125em; font-size:max(11px, calc(22.67 * var(--u))); max-width:62%; margin-top:calc(100 * var(--u))}
@@ -210,10 +213,11 @@ body{
     <div class="divider" aria-hidden="true"><i></i><s></s><b class="dm"></b><s></s><i></i></div>
     <ol class="sched">
       <li><span class="t">11:00 AM</span><b class="dm" aria-hidden="true"></b><span class="e">Varaverpu<svg class="mo" aria-hidden="true"><use href="#mo-kalasam"/></svg></span></li>
+      <li><span class="t">11:00 AM</span><b class="dm" aria-hidden="true"></b><span class="e">Snacks<button class="menu-btn" type="button" data-dlg="snackDlg" aria-haspopup="dialog" aria-controls="snackDlg"><svg aria-hidden="true"><use href="#mo-leaf"/></svg>Menu</button></span></li>
       <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced<svg class="mo" aria-hidden="true"><use href="#mo-lotus"/></svg></span></li>
       <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced<svg class="mo" aria-hidden="true"><use href="#mo-lotus"/></svg></span></li>
       <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced<svg class="mo" aria-hidden="true"><use href="#mo-lotus"/></svg></span></li>
-      <li><span class="t">12:30 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Lunch<button class="menu-btn" id="menuBtn" type="button" aria-haspopup="dialog" aria-controls="menuDlg"><svg aria-hidden="true"><use href="#mo-leaf"/></svg>Menu</button></span></li>
+      <li><span class="t">12:30 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Lunch<button class="menu-btn" type="button" data-dlg="lunchDlg" aria-haspopup="dialog" aria-controls="lunchDlg"><svg aria-hidden="true"><use href="#mo-leaf"/></svg>Menu</button></span></li>
       <li><span class="t">1:00 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Ring Ceremony<svg class="mo" aria-hidden="true"><use href="#mo-rings"/></svg></span></li>
       <li><span class="t">1:10 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Cake Cutting<svg class="mo" aria-hidden="true"><use href="#mo-cake"/></svg></span></li>
     </ol>
@@ -223,13 +227,30 @@ body{
   <div class="bottom" aria-hidden="true"><img class="flora" src="flowers.webp" width="1200" height="1008" alt="" decoding="async"></div>
 </main>
 
-<dialog class="menu-dlg" id="menuDlg" aria-labelledby="menuTitle">
+<dialog class="menu-dlg" id="lunchDlg" aria-labelledby="lunchTitle">
   <div class="menu-card">
-    <button class="menu-x" id="menuClose" type="button" aria-label="Close menu">&times;</button>
+    <button class="menu-x" type="button" aria-label="Close menu">&times;</button>
     <p class="menu-ta">விருந்து</p>
-    <h3 id="menuTitle">Lunch Menu</h3>
+    <h3 id="lunchTitle">Lunch Menu</h3>
+    <p class="menu-time">12:30 PM</p>
     <div class="divider" aria-hidden="true"><i></i><s></s><b class="dm"></b><s></s><i></i></div>
-    <p class="menu-soon">The menu will be shared here soon.</p>
+    <ul class="menu-list"><li>Kaju Katli</li></ul>
+    <ul class="menu-list"><li>Chilli Gobi</li><li>Vazhaipoo Vadai</li></ul>
+    <ul class="menu-list"><li>Rumali Roti</li><li>Mushroom Masala</li></ul>
+    <ul class="menu-list"><li>Veg Biryani</li></ul>
+    <ul class="menu-list"><li>Steamed Rice</li><li>Maanga Murungakkai Kathirikkai Sambar</li><li>Homemade Rasam</li><li>Curd, Maa Inji Oorugai</li><li>Appalam, Potato Chips</li></ul>
+    <ul class="menu-list"><li>Pumpkin Seed Payasam</li><li>Cashew Milk Ice Cream &ndash; Pista</li></ul>
+  </div>
+</dialog>
+
+<dialog class="menu-dlg" id="snackDlg" aria-labelledby="snackTitle">
+  <div class="menu-card">
+    <button class="menu-x" type="button" aria-label="Close menu">&times;</button>
+    <p class="menu-ta">சிற்றுண்டி</p>
+    <h3 id="snackTitle">Snacks</h3>
+    <p class="menu-time">11:00 AM</p>
+    <div class="divider" aria-hidden="true"><i></i><s></s><b class="dm"></b><s></s><i></i></div>
+    <ul class="menu-list"><li>Watermelon Juice</li><li>Baby Corn 65</li><li>Green Peas &amp; Maanga Sundal</li></ul>
   </div>
 </dialog>
 
@@ -317,11 +338,12 @@ body{
     else{window.open('https://wa.me/?text='+encodeURIComponent(msg+'\n'+url),'_blank','noopener')}
   };
 
-  // Lunch menu
-  var dlg=document.getElementById('menuDlg');
-  document.getElementById('menuBtn').onclick=function(){if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')};
-  document.getElementById('menuClose').onclick=function(){if(dlg.close)dlg.close();else dlg.removeAttribute('open')};
-  dlg.addEventListener('click',function(e){if(e.target===dlg&&dlg.close)dlg.close()});
+  // Menus (snacks, lunch)
+  document.querySelectorAll('[data-dlg]').forEach(function(b){b.onclick=function(){var d=document.getElementById(b.getAttribute('data-dlg'));if(d.showModal)d.showModal();else d.setAttribute('open','')}});
+  document.querySelectorAll('.menu-dlg').forEach(function(d){
+    d.querySelector('.menu-x').onclick=function(){if(d.close)d.close();else d.removeAttribute('open')};
+    d.addEventListener('click',function(e){if(e.target===d&&d.close)d.close()});
+  });
 
   // Reveal on scroll
   var els=document.querySelectorAll('.reveal');

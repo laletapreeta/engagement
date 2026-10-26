@@ -97,6 +97,7 @@ body{
 .bottom{height:0; padding-top:26%}
 .flora{position:absolute; left:0; bottom:0; width:100%; height:auto; z-index:4; pointer-events:none; user-select:none}
 .foot{position:relative; z-index:5; font-family:var(--caps); color:var(--gold-d); letter-spacing:.2em; font-size:12px; line-height:1.7; max-width:62%; margin:clamp(34px,7vw,48px) auto 0}
+@media (max-width:620px){.foot .fdot{display:none} .foot .fdate{display:block}}
 .reveal{opacity:0; transform:translateY(10px); transition:opacity .9s ease, transform .9s ease}
 .reveal.in{opacity:1; transform:none}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none; transition:none}.hill .flame{animation:none}}
@@ -168,7 +169,7 @@ body{
     <p>Details of all the functions will be shared here soon.</p>
   </section>
 
-  <p class="foot">LALETA PREETA &amp; PRADEEP · 14.12.2026</p>
+  <p class="foot">LALETA PREETA &amp; PRADEEP<span class="fdot"> · </span><span class="fdate">14.12.2026</span></p>
   <div class="bottom" aria-hidden="true"><img class="flora" src="flowers.webp" width="1200" height="1008" alt="" decoding="async"></div>
 </main>
 

@@ -108,10 +108,30 @@ body{
 .cal-pop a:hover,.cal-pop button:hover{background:rgba(179,138,61,.12)}
 .events{margin-top:calc(130 * var(--u))}
 .events .divider{margin-top:calc(13.9 * var(--u))}
-.sched{list-style:none; padding:0; margin:calc(35.7 * var(--u)) auto 0; max-width:calc(1100 * var(--u)); display:flex; flex-direction:column; row-gap:calc(67.2 * var(--u))}
-.sched li{display:grid; grid-template-columns:minmax(0,1fr) calc(14 * var(--u)) minmax(0,1fr); column-gap:calc(23 * var(--u)); align-items:baseline}
+.sched{list-style:none; padding:0; margin:calc(35.7 * var(--u)) auto 0; max-width:calc(1100 * var(--u)); display:grid; grid-template-columns:minmax(0,1fr) calc(14 * var(--u)) minmax(0,1fr); column-gap:calc(23 * var(--u)); row-gap:calc(67.2 * var(--u))}
+.sched li{display:grid; grid-column:1 / -1; grid-template-columns:subgrid; align-items:baseline}
+@supports not (grid-template-columns:subgrid){.sched li{grid-template-columns:minmax(0,1fr) calc(14 * var(--u)) minmax(0,1fr); column-gap:calc(23 * var(--u))}}
+@media (max-width:540px){.sched{grid-template-columns:max-content calc(14 * var(--u)) max-content; justify-content:center; column-gap:calc(20 * var(--u))}}
 .sched .t{font-family:var(--caps); font-size:calc(40 * var(--u)); line-height:1.2; color:var(--gold-d); text-align:right; white-space:nowrap}
-.sched .e{font-weight:700; font-size:calc(44 * var(--u)); line-height:1.2; color:var(--maroon); text-align:left}
+.sched .e{font-weight:700; font-size:calc(44 * var(--u)); line-height:1.2; color:var(--maroon); text-align:left; white-space:nowrap}
+.mo{display:inline-block; width:1.15em; height:1.15em; vertical-align:-.2em; margin-left:.4em; color:var(--gold)}
+.menu-btn{display:inline-flex; align-items:center; gap:.35em; margin:-.6em 0 -.6em .7em; vertical-align:.12em; padding:.32em .75em .32em .5em; font-family:var(--serif); font-weight:700; font-size:max(12px, calc(22 * var(--u))); line-height:1; letter-spacing:.14em; text-transform:uppercase; color:var(--maroon); background:rgba(255,251,243,.8); border:1px solid var(--gold); border-radius:6px; box-shadow:0 1px 0 rgba(142,106,43,.25); cursor:pointer; transition:background .2s, transform .2s}
+.menu-btn svg{width:1.45em; height:1.45em; color:var(--gold-d)}
+.menu-btn:hover{background:#FFF8EA; transform:translateY(-1px)}
+.menu-btn:focus-visible{outline:2px solid var(--gold-d); outline-offset:2px}
+.menu-dlg{border:0; padding:0; background:transparent; width:min(440px, calc(100vw - 32px)); max-width:none; color:var(--ink); overflow:visible}
+.menu-dlg::backdrop{background:rgba(45,22,12,.5)}
+.menu-dlg[open]{animation:pop .25s ease}
+@keyframes pop{from{opacity:0; transform:translateY(8px) scale(.98)}to{opacity:1; transform:none}}
+.menu-card{position:relative; background:#F3E2BC url("paper.jpg") center/cover; padding:42px 30px 38px; text-align:center; box-shadow:0 30px 60px -20px rgba(40,20,5,.6)}
+.menu-card::before,.menu-card::after{content:""; position:absolute; pointer-events:none; border:1.4px solid var(--gold)}
+.menu-card::before{inset:8px} .menu-card::after{inset:13px; border-width:1px; opacity:.7}
+.menu-ta{font-family:var(--tamil); color:var(--gold-d); font-size:24px; line-height:1.3}
+.menu-card h3{font-family:var(--caps); font-weight:400; color:var(--maroon); font-size:26px; letter-spacing:.06em; margin:2px 0 0}
+.menu-card .divider{margin-top:12px}
+.menu-soon{font-style:italic; font-size:19px; margin-top:16px}
+.menu-x{position:absolute; top:16px; right:18px; z-index:2; width:40px; height:40px; border:0; background:none; font:inherit; font-size:30px; line-height:1; color:var(--gold-d); cursor:pointer}
+.menu-x:focus-visible{outline:2px solid var(--gold-d); outline-offset:-4px}
 .sched .dm{width:calc(14 * var(--u)); height:calc(14 * var(--u)); min-width:6px; min-height:6px; align-self:center; justify-self:center}
 .foot{position:relative; z-index:5; font-weight:700; color:var(--gold-d); letter-spacing:.125em; font-size:max(11px, calc(22.67 * var(--u))); max-width:62%; margin-top:calc(100 * var(--u))}
 .bottom{height:0; padding-top:26%}
@@ -124,6 +144,7 @@ body{
 </style>
 </head>
 <body>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"> <defs> <symbol id="mo-kalasam" viewBox="0 0 32 32"> <g fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"> <path transform="translate(16 15.4) rotate(-78)" d="M0 0C1.7-2 1.8-5.2 0-8C-1.8-5.2-1.7-2 0 0Z" fill="#7C9A4C" fill-opacity=".6"/><path transform="translate(16 15.4) rotate(-48)" d="M0 0C1.7-2 1.8-5.2 0-8C-1.8-5.2-1.7-2 0 0Z" fill="#7C9A4C" fill-opacity=".6"/><path transform="translate(16 15.4) rotate(48)" d="M0 0C1.7-2 1.8-5.2 0-8C-1.8-5.2-1.7-2 0 0Z" fill="#7C9A4C" fill-opacity=".6"/><path transform="translate(16 15.4) rotate(78)" d="M0 0C1.7-2 1.8-5.2 0-8C-1.8-5.2-1.7-2 0 0Z" fill="#7C9A4C" fill-opacity=".6"/> <ellipse cx="16" cy="10.6" rx="2.9" ry="3.8" fill="#B9844E" fill-opacity=".6"/> <path d="M16 6.8V5.2"/> <path d="M13.4 17.2C8.8 18.4 7.2 21.8 8.3 24.7c1 2.7 4.1 3.7 7.7 3.7s6.7-1 7.7-3.7c1.1-2.9-.5-6.3-5.1-7.5z" fill="currentColor" fill-opacity=".2"/> <path d="M11 15.4h10" stroke-width="1.8"/> <path d="M13.4 15.6v1.6M18.6 15.6v1.6"/> <path d="M9 21.4h14" stroke-opacity=".75"/> <path d="M13.2 24.4l1.4-1.4 1.4 1.4 1.4-1.4 1.4 1.4" stroke-width="1"/> </g> </symbol> <symbol id="mo-lotus" viewBox="0 0 32 32"> <g fill="currentColor" fill-opacity=".16" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round" stroke-linecap="round"> <path d="M16 7.5c3.2 3.4 3.4 9 0 13-3.4-4-3.2-9.6 0-13z" fill="#E7A3A0" fill-opacity=".45"/> <path d="M15.6 20.6c-3.6-.2-6.8-3.2-7.5-7.6 3.5.5 6.4 3.4 7.5 7.6z"/> <path d="M16.4 20.6c3.6-.2 6.8-3.2 7.5-7.6-3.5.5-6.4 3.4-7.5 7.6z"/> <path d="M15 21c-3.8 1-7.6-.4-9.6-3.4 3.4-.8 7 .4 9.6 3.4z"/> <path d="M17 21c3.8 1 7.6-.4 9.6-3.4-3.4-.8-7 .4-9.6 3.4z"/> <path d="M9.5 24h13" fill="none"/> <path d="M12 26.4h8" fill="none" stroke-opacity=".7"/> </g> </symbol> <symbol id="mo-rings" viewBox="0 0 32 32"> <g fill="none" stroke="currentColor" stroke-width="1.5"> <circle cx="12.4" cy="19.4" r="6.4"/> <circle cx="19.6" cy="19.4" r="6.4"/> <path d="M17.4 9.8h4.4l1.6 1.9-3.8 3.4-3.8-3.4z" fill="#F3E7C9" stroke-width="1.2" stroke-linejoin="round"/> <path d="M16.2 11.7h7.2M19.6 9.8l-1 1.9 1 3.4 1-3.4-1-1.9" stroke-width=".8" stroke-linejoin="round"/> </g> </symbol> <symbol id="mo-cake" viewBox="0 0 32 32"> <g fill="none" stroke="currentColor" stroke-width="1.45" stroke-linejoin="round" stroke-linecap="round"> <path d="M16 6.2c.9 1 1.2 1.9.6 2.6-.4.4-.9.4-1.2 0-.6-.7-.3-1.6.6-2.6z" fill="#E9762A" fill-opacity=".8" stroke="#E9762A" stroke-width=".8"/> <path d="M16 9.6v3"/> <rect x="10.5" y="12.6" width="11" height="6" rx=".8" fill="currentColor" fill-opacity=".14"/> <rect x="7" y="18.6" width="18" height="7.4" rx=".9" fill="currentColor" fill-opacity=".14"/> <path d="M10.5 14.6c1.1 1.2 2.2 1.2 2.75 0 .55 1.2 1.65 1.2 2.75 0 1.1 1.2 2.2 1.2 2.75 0 .55 1.2 1.65 1.2 2.75 0" stroke-width="1"/> <path d="M7 20.8c1.2 1.3 2.4 1.3 3 0 .6 1.3 1.8 1.3 3 0 .6 1.3 1.8 1.3 3 0 .6 1.3 1.8 1.3 3 0 .6 1.3 1.8 1.3 3 0 .6 1.3 1.8 1.3 3 0" stroke-width="1"/> <path d="M4.8 27.4h22.4"/> </g> </symbol> <symbol id="mo-leaf" viewBox="0 0 32 32"> <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"> <path d="M4.5 21.5C9 12 18 7.8 27.5 8.4 26.6 18 19.5 24.6 9.8 24.2z" fill="#7C9A4C" fill-opacity=".35"/> <path d="M7 22.8C13 17 19 12.6 26 9.4"/> <path d="M12.2 18.8l-.4 3.6M16 16l-.2 4.6M19.6 13.6l.3 4.2M22.8 11.6l.8 3" stroke-width=".9" stroke-opacity=".8"/> </g> </symbol> </defs> </svg>
 <main class="card">
   <div id="toran" aria-hidden="true"></div>
   <div id="hill" aria-hidden="true"></div>
@@ -188,19 +209,29 @@ body{
     <p class="invite">Join us for the celebrations</p>
     <div class="divider" aria-hidden="true"><i></i><s></s><b class="dm"></b><s></s><i></i></div>
     <ol class="sched">
-      <li><span class="t">11:00 AM</span><b class="dm" aria-hidden="true"></b><span class="e">Varaverpu</span></li>
-      <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced</span></li>
-      <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced</span></li>
-      <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced</span></li>
-      <li><span class="t">12:30 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Lunch</span></li>
-      <li><span class="t">1:00 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Ring Ceremony</span></li>
-      <li><span class="t">1:10 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Cake Cutting</span></li>
+      <li><span class="t">11:00 AM</span><b class="dm" aria-hidden="true"></b><span class="e">Varaverpu<svg class="mo" aria-hidden="true"><use href="#mo-kalasam"/></svg></span></li>
+      <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced<svg class="mo" aria-hidden="true"><use href="#mo-lotus"/></svg></span></li>
+      <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced<svg class="mo" aria-hidden="true"><use href="#mo-lotus"/></svg></span></li>
+      <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced<svg class="mo" aria-hidden="true"><use href="#mo-lotus"/></svg></span></li>
+      <li><span class="t">12:30 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Lunch<button class="menu-btn" id="menuBtn" type="button" aria-haspopup="dialog" aria-controls="menuDlg"><svg aria-hidden="true"><use href="#mo-leaf"/></svg>Menu</button></span></li>
+      <li><span class="t">1:00 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Ring Ceremony<svg class="mo" aria-hidden="true"><use href="#mo-rings"/></svg></span></li>
+      <li><span class="t">1:10 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Cake Cutting<svg class="mo" aria-hidden="true"><use href="#mo-cake"/></svg></span></li>
     </ol>
   </section>
 
   <p class="foot">LALETA PREETA &amp; PRADEEP<span class="fdot"> · </span><span class="fdate">14.12.2026</span></p>
   <div class="bottom" aria-hidden="true"><img class="flora" src="flowers.webp" width="1200" height="1008" alt="" decoding="async"></div>
 </main>
+
+<dialog class="menu-dlg" id="menuDlg" aria-labelledby="menuTitle">
+  <div class="menu-card">
+    <button class="menu-x" id="menuClose" type="button" aria-label="Close menu">&times;</button>
+    <p class="menu-ta">விருந்து</p>
+    <h3 id="menuTitle">Lunch Menu</h3>
+    <div class="divider" aria-hidden="true"><i></i><s></s><b class="dm"></b><s></s><i></i></div>
+    <p class="menu-soon">The menu will be shared here soon.</p>
+  </div>
+</dialog>
 
 <script>
 (function(){
@@ -271,10 +302,26 @@ body{
 
   // Share
   var msg='You are invited to the engagement of Laleta Preeta & Pradeep · Monday, 14 December 2026 · 12:00 Noon – 1:30 PM · Avanya Resorts & Retreat, Tiruvannamalai';
+  // the two invitation pages (invitation-1.jpg, invitation-2.jpg) are shared as pictures where the phone allows it
+  var shareFiles=null,shareAsked=false;
+  function prepShare(){
+    if(shareAsked||!navigator.canShare||!window.File||!window.fetch)return;shareAsked=true;
+    Promise.all([1,2].map(function(i){return fetch('invitation-'+i+'.jpg').then(function(r){if(!r.ok)throw r.status;return r.blob()}).then(function(b){return new File([b],'Laleta-Pradeep-Engagement-'+i+'.jpg',{type:b.type||'image/jpeg'})})}))
+      .then(function(fs){try{if(navigator.canShare({files:fs}))shareFiles=fs}catch(e){}}).catch(function(){});
+  }
+  var acts=document.querySelector('.actions');
+  if('IntersectionObserver' in window){var so=new IntersectionObserver(function(es){if(es[0].isIntersecting){prepShare();so.disconnect()}},{rootMargin:'300px'});so.observe(acts)}else prepShare();
   document.getElementById('shareBtn').onclick=function(){
+    if(shareFiles){navigator.share({files:shareFiles,title:title,text:msg+'\n'+url}).catch(function(){});return}
     if(navigator.share){navigator.share({title:title,text:msg,url:url}).catch(function(){})}
     else{window.open('https://wa.me/?text='+encodeURIComponent(msg+'\n'+url),'_blank','noopener')}
   };
+
+  // Lunch menu
+  var dlg=document.getElementById('menuDlg');
+  document.getElementById('menuBtn').onclick=function(){if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','')};
+  document.getElementById('menuClose').onclick=function(){if(dlg.close)dlg.close();else dlg.removeAttribute('open')};
+  dlg.addEventListener('click',function(e){if(e.target===dlg&&dlg.close)dlg.close()});
 
   // Reveal on scroll
   var els=document.querySelectorAll('.reveal');

@@ -15,7 +15,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FBF6EC'/%3E%3Cpath d='M32 8c8 12 12 20 10 30-1 7-5 12-10 12s-9-5-10-12C20 28 24 20 32 8z' fill='%23E9762A'/%3E%3Cpath d='M32 26c3 5 5 9 4 13-.6 3-2 5-4 5s-3.4-2-4-5c-1-4 1-8 4-13z' fill='%23FFE7A8'/%3E%3Cpath d='M14 50h36l-4 6H18z' fill='%23B38A3D'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Meera+Inimai&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Meera+Inimai&display=swap" rel="stylesheet">
 <style>
 :root{
   --maroon:#6A1B29; --ink:#45292B; --ink2:#3A1F22;
@@ -24,6 +24,12 @@
   --serif:'Cormorant Garamond', Georgia, serif;
   --caps:'Cinzel', 'Cormorant Garamond', serif;
   --tamil:'Meera Inimai', 'Noto Sans Tamil', sans-serif;
+  /* Every size below is the Canva invitation's size (page = 1500 px wide) times a unit.
+     --g = card width / 1500, so the card is the Canva page scaled (used for the artwork).
+     --u = the same, but on phones it stays at 0.45px (a little less on very narrow
+     phones, so the longest line, LALETA PREETA, still fits) so text stays readable. */
+  --g:calc(min(760px, 100vw) / 1500);
+  --u:max(var(--g), min(0.45px, (100vw - 60px) / 680));
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -36,66 +42,78 @@ body{
   position:relative; max-width:760px; margin:0 auto; overflow:hidden;
   background:#F3E2BC url("paper.jpg") center/cover no-repeat;
   box-shadow:0 24px 60px -24px rgba(80,50,20,.35);
-  padding:0 clamp(20px, 6vw, 64px) clamp(36px, 7vw, 64px);
+  padding:0 30px clamp(36px, 7vw, 64px);
   text-align:center;
 }
 @media (max-width:800px){ body{padding:0} .card{box-shadow:none} }
 .card::before,.card::after{content:""; position:absolute; pointer-events:none; border:1.6px solid var(--gold); z-index:3}
 .card::before{inset:12px}
 .card::after{inset:20px; border-width:1px; opacity:.7}
-.orn{display:block; width:100%; height:auto}
-.toran{margin:14px -2% 0; width:104%; position:relative; z-index:2}
-.hill{width:min(62%, 380px); margin:-6px auto 0}
+:where(.card) :where(p,h1,h2,ol){margin:0}
+.orn{display:block; height:auto}
+.toran{width:calc(1340 * var(--g)); max-width:none; margin:calc(88 * var(--g)) 0 0 calc(50% - 670 * var(--g)); position:relative; z-index:2}
+.hill{width:calc(620 * var(--g)); margin:calc(-32 * var(--g)) auto 0; position:relative; z-index:2}
 .hill .flame{transform-origin:752px 326px; animation:flick 2.6s ease-in-out infinite}
 @keyframes flick{0%,100%{transform:scale(1,1)}30%{transform:scale(.96,1.05)}60%{transform:scale(1.03,.97)}}
-.blessing{font-family:var(--tamil); color:var(--maroon); font-size:clamp(16px, 3.6vw, 23px); margin:clamp(10px,2.4vw,18px) 0 0; letter-spacing:.01em}
-.blessing .dot{color:var(--gold); padding:0 .3em}
+.blessing,.tamil-title,.invite,.name-line,.role,.parents,.place,.year,.time,.venue,.near,.foot{max-width:calc(1200 * var(--u)); margin-left:auto; margin-right:auto; line-height:1.2}
+.blessing{font-family:var(--tamil); color:var(--maroon); font-size:calc(27.33 * var(--u)); margin-top:calc(16 * var(--u))}
+.blessing .dot{padding:0 .4em}
 .blessing.wrapped .dot{display:none}
-.tamil-title{font-family:var(--tamil); color:var(--gold-d); font-size:clamp(25px, 6vw, 38px); margin:6px 0 0; line-height:1.3}
-.invite{font-style:italic; font-size:clamp(17px, 3.7vw, 23px); margin:6px 0 0; color:var(--ink)}
-.person{margin-top:clamp(26px, 6vw, 40px)}
-.name-line{display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; column-gap:.15em; row-gap:2px; color:var(--maroon)}
-.name{font-family:var(--caps); font-weight:400; font-size:clamp(26px, 6.9vw, 54px); line-height:1.1; letter-spacing:.01em; margin:0}
-.quals{font-weight:700; font-size:clamp(12px, 3vw, 21px)}
+.tamil-title{font-family:var(--tamil); font-weight:400; color:var(--gold-d); font-size:calc(50 * var(--u)); margin-top:calc(27.2 * var(--u))}
+.invite{font-style:italic; font-size:calc(34.67 * var(--u)); color:var(--ink); margin-top:calc(12.5 * var(--u))}
+.person{margin-top:calc(22.4 * var(--u))}
+.person.groom{margin-top:calc(3.4 * var(--u))}
+.name-line{display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; column-gap:calc(3 * var(--u)); color:var(--maroon)}
+.name{font-family:var(--caps); font-weight:400; font-size:calc(90 * var(--u)); line-height:1.2; margin:0}
+.quals{font-weight:700; font-size:calc(40 * var(--u)); line-height:1.2}
 .name-line.wrapped .comma{display:none}
 .nw{white-space:nowrap}
-.role{font-style:italic; font-size:clamp(19px, 4.4vw, 28px); margin:6px 0 0; color:var(--ink)}
+.role{font-style:italic; font-weight:700; font-size:calc(40 * var(--u)); color:var(--ink); margin-top:calc(-7.5 * var(--u))}
+.name-line.wrapped + .role{margin-top:0}
 .role a{color:inherit; text-decoration:none; border-bottom:1px solid rgba(179,138,61,.5); padding-bottom:1px} .role a:hover{border-bottom-color:var(--gold-d)}
-.parents{font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:clamp(13px, 2.9vw, 20px); color:var(--ink2); margin:12px 0 0}
-.place{font-weight:700; text-transform:uppercase; letter-spacing:.3em; font-size:clamp(12px, 2.5vw, 17px); color:var(--gold-d); margin:4px 0 0; padding-left:.3em}
-.amp{display:flex; align-items:center; justify-content:center; gap:14px; margin:clamp(18px,4vw,26px) 0 0}
-.amp span{font-style:italic; font-weight:500; color:var(--gold); font-size:clamp(36px, 8vw, 52px); line-height:1}
-.rule{height:1px; width:min(22vw,124px); background:var(--gold); position:relative}
-.rule::after{content:""; position:absolute; top:-3px; width:7px; height:7px; background:var(--gold); transform:rotate(45deg)}
-.rule.l::after{left:-3px} .rule.r::after{right:-3px}
-.date{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:clamp(10px,3vw,22px); max-width:520px; margin:clamp(34px,7vw,48px) auto 0}
-.date .side{border-top:1px solid var(--gold); border-bottom:1px solid var(--gold); padding:clamp(9px,2vw,13px) 0; font-weight:700; text-transform:uppercase; letter-spacing:.25em; font-size:clamp(12px, 2.7vw, 18px); color:var(--ink); padding-left:.25em}
-.date .day{font-family:var(--caps); color:var(--maroon); font-size:clamp(58px, 14vw, 90px); line-height:.9}
-.year{font-family:var(--caps); font-weight:500; letter-spacing:.5em; color:var(--gold-d); font-size:clamp(14px, 3vw, 19px); margin:8px 0 0; padding-left:.5em}
-.time{font-style:italic; font-size:clamp(19px, 4.4vw, 26px); margin:14px 0 0}
-.countdown{display:inline-block; margin:14px 0 0; padding:6px 16px; border:1px solid rgba(179,138,61,.55); border-radius:999px; font-size:clamp(13px,2.8vw,16px); letter-spacing:.06em; color:var(--gold-d); background:rgba(255,251,243,.6)}
-.divider{display:flex; align-items:center; justify-content:center; gap:10px; margin:clamp(30px,6vw,40px) 0 0}
-.divider i{display:block; height:1px; width:60px; background:var(--gold)}
-.divider b{width:9px; height:9px; background:var(--gold); transform:rotate(45deg)}
-.venue{font-weight:700; text-transform:uppercase; letter-spacing:.22em; color:var(--maroon); font-size:clamp(16px, 3.7vw, 26px); margin:16px 0 0; padding-left:.22em; line-height:1.35}
-.near{font-style:italic; font-size:clamp(17px, 3.8vw, 23px); margin:6px 0 0}
-.actions{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:22px auto 0; max-width:540px}
+.parents{font-weight:400; text-transform:uppercase; letter-spacing:.06em; font-size:calc(32 * var(--u)); color:var(--ink2); margin-top:calc(11.2 * var(--u))}
+.place{font-weight:700; text-transform:uppercase; letter-spacing:.25em; font-size:calc(30.67 * var(--u)); color:var(--gold-d); margin-top:calc(3.9 * var(--u)); padding-left:.25em}
+.groom .place{margin-top:calc(3.6 * var(--u))}
+.dm{display:block; flex:none; background:var(--gold); clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.amp{display:flex; align-items:center; justify-content:center; margin-top:calc(11.2 * var(--u))}
+.amp span{width:calc(108 * var(--u)); font-style:italic; font-weight:400; color:var(--gold); font-size:calc(64 * var(--u)); line-height:1.2}
+.rule{height:1px; width:calc(124 * var(--u)); background:var(--gold); position:relative}
+.rule .dm{position:absolute; top:50%; width:calc(8 * var(--u)); height:calc(8 * var(--u)); min-width:6px; min-height:6px}
+.rule.l .dm{left:0; transform:translate(-50%,-50%)} .rule.r .dm{right:0; transform:translate(50%,-50%)}
+.date{display:grid; grid-template-columns:minmax(0,1fr) clamp(calc(150 * var(--u)), calc(100% - 496 * var(--u)), calc(224 * var(--u))) minmax(0,1fr); align-items:center; width:min(100%, calc(716 * var(--u))); margin:calc(51.5 * var(--u)) auto 0}
+.date .side{height:calc(80 * var(--u)); display:flex; align-items:center; justify-content:center; border-top:1px solid var(--gold); border-bottom:1px solid var(--gold); font-weight:700; text-transform:uppercase; letter-spacing:.25em; padding-left:.25em; font-size:calc(33.33 * var(--u)); line-height:1.2; color:var(--ink); white-space:nowrap}
+.date .day{font-family:var(--caps); color:var(--maroon); font-size:calc(128 * var(--u)); line-height:calc(80 * var(--u)); height:calc(80 * var(--u)); position:relative; top:calc(8.5 * var(--u))}
+.year{font-family:var(--caps); font-weight:700; letter-spacing:.5em; padding-left:.5em; color:var(--gold-d); font-size:calc(36 * var(--u)); margin-top:calc(38.5 * var(--u))}
+.time{font-style:italic; font-size:calc(50.67 * var(--u)); margin-top:calc(7.8 * var(--u))}
+.countdown{display:inline-block; margin:calc(14 * var(--u)) 0 0; padding:.35em 1.1em; border:1px solid rgba(179,138,61,.55); border-radius:999px; font-size:max(13px, calc(28 * var(--u))); letter-spacing:.06em; color:var(--gold-d); background:rgba(255,251,243,.6)}
+.divider{display:flex; align-items:center; justify-content:center; height:calc(24 * var(--u)); margin-top:calc(14 * var(--u))}
+.divider i{display:block; height:1px; width:calc(66 * var(--u)); background:var(--gold)}
+.divider i:first-child{margin-right:calc(10 * var(--u))} .divider i:last-child{margin-left:calc(10 * var(--u))}
+.divider s{display:block; width:calc(4 * var(--u)); height:calc(4 * var(--u)); min-width:2px; min-height:2px; border-radius:50%; background:var(--gold)}
+.divider .dm{width:calc(12 * var(--u)); height:calc(12 * var(--u))}
+.venue{font-weight:700; text-transform:uppercase; letter-spacing:.1em; padding-left:.1em; color:var(--maroon); font-size:calc(44 * var(--u)); margin-top:calc(17.5 * var(--u))}
+.near{font-style:italic; font-size:calc(40 * var(--u)); margin-top:calc(4.2 * var(--u))}
+.actions{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:calc(32 * var(--u)) auto 0; max-width:540px}
 .btn{appearance:none; border:1px solid var(--gold); background:transparent; color:var(--maroon); font-family:var(--serif); font-weight:700; font-size:clamp(15px,3.4vw,17px); letter-spacing:.06em; padding:11px 18px; border-radius:999px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:background .2s, color .2s, transform .2s; min-height:44px}
 .btn svg{width:18px; height:18px; flex:none}
 .btn.primary{background:var(--maroon); border-color:var(--maroon); color:#FBF1DF}
 .btn:hover{transform:translateY(-1px)}
 .btn:focus-visible{outline:2px solid var(--gold-d); outline-offset:3px}
 .cal-menu{position:relative; display:inline-block}
-.cal-pop{position:absolute; left:50%; transform:translateX(-50%); top:calc(100% + 8px); background:#FFFBF3; border:1px solid var(--gold-l); border-radius:14px; padding:6px; box-shadow:0 12px 30px -12px rgba(80,50,20,.35); display:none; z-index:5; min-width:190px}
+.cal-pop{position:absolute; left:50%; transform:translateX(-50%); top:calc(100% + 8px); background:#FFFBF3; border:1px solid var(--gold-l); border-radius:14px; padding:6px; box-shadow:0 12px 30px -12px rgba(80,50,20,.35); display:none; z-index:6; min-width:190px}
 .cal-pop.open{display:block}
 .cal-pop a,.cal-pop button{display:block; width:100%; text-align:left; padding:10px 12px; border:0; background:none; font:inherit; font-weight:600; color:var(--ink); text-decoration:none; border-radius:10px; cursor:pointer}
 .cal-pop a:hover,.cal-pop button:hover{background:rgba(179,138,61,.12)}
-.events{margin:clamp(40px,8vw,56px) 0 0}
-.events h2{font-family:var(--caps); font-weight:400; color:var(--maroon); letter-spacing:.14em; font-size:clamp(20px,4.6vw,28px); margin:0}
-.events p{font-style:italic; font-size:clamp(16px,3.6vw,20px); margin:8px 0 0; color:var(--ink)}
+.events{margin-top:calc(130 * var(--u))}
+.events .divider{margin-top:calc(13.9 * var(--u))}
+.sched{list-style:none; padding:0; margin:calc(35.7 * var(--u)) auto 0; max-width:calc(1100 * var(--u)); display:flex; flex-direction:column; row-gap:calc(67.2 * var(--u))}
+.sched li{display:grid; grid-template-columns:minmax(0,1fr) calc(14 * var(--u)) minmax(0,1fr); column-gap:calc(23 * var(--u)); align-items:baseline}
+.sched .t{font-family:var(--caps); font-size:calc(40 * var(--u)); line-height:1.2; color:var(--gold-d); text-align:right; white-space:nowrap}
+.sched .e{font-weight:700; font-size:calc(44 * var(--u)); line-height:1.2; color:var(--maroon); text-align:left}
+.sched .dm{width:calc(14 * var(--u)); height:calc(14 * var(--u)); min-width:6px; min-height:6px; align-self:center; justify-self:center}
+.foot{position:relative; z-index:5; font-weight:700; color:var(--gold-d); letter-spacing:.125em; font-size:max(11px, calc(22.67 * var(--u))); max-width:62%; margin-top:calc(100 * var(--u))}
 .bottom{height:0; padding-top:26%}
 .flora{position:absolute; left:0; bottom:0; width:100%; height:auto; z-index:4; pointer-events:none; user-select:none}
-.foot{position:relative; z-index:5; font-family:var(--caps); color:var(--gold-d); letter-spacing:.2em; font-size:12px; line-height:1.7; max-width:62%; margin:clamp(34px,7vw,48px) auto 0}
 @media (max-width:620px){.foot .fdot{display:none} .foot .fdate{display:block}}
 .reveal{opacity:0; transform:translateY(10px); transition:opacity .9s ease, transform .9s ease}
 .reveal.in{opacity:1; transform:none}
@@ -119,9 +137,9 @@ body{
     <p class="place">Tiruvannamalai</p>
   </section>
 
-  <div class="amp reveal" aria-hidden="true"><i class="rule l"></i><span>&amp;</span><i class="rule r"></i></div>
+  <div class="amp reveal" aria-hidden="true"><i class="rule l"><b class="dm"></b></i><span>&amp;</span><i class="rule r"><b class="dm"></b></i></div>
 
-  <section class="person reveal" style="margin-top:clamp(16px,4vw,24px)" aria-label="Groom">
+  <section class="person groom reveal" aria-label="Groom">
     <div class="name-line"><h2 class="name">PRADEEP</h2><span class="quals"><span class="comma">, </span>B.Sc ISM</span></div>
     <p class="role"><a href="https://vvvjewellers.com" target="_blank" rel="noopener">VVV Jewellers</a></p>
     <p class="parents">Son of <span class="nw">Mr. Prasath &amp; Mrs. Deepa</span></p>
@@ -139,7 +157,7 @@ body{
     <p class="countdown" id="countdown" hidden></p>
   </section>
 
-  <div class="divider reveal" aria-hidden="true"><i></i><b></b><i></i></div>
+  <div class="divider reveal" aria-hidden="true"><i></i><s></s><b class="dm"></b><s></s><i></i></div>
 
   <section class="reveal" aria-label="Venue">
     <p class="venue">Avanya Resorts &amp; Retreat</p>
@@ -163,9 +181,19 @@ body{
     </div>
   </section>
 
-  <section class="events reveal" id="events" aria-label="Events">
-    <h2>Celebrations</h2>
-    <p>Details of all the functions will be shared here soon.</p>
+  <section class="events reveal" id="events" aria-label="Schedule">
+    <h2 class="tamil-title">நிகழ்ச்சிகள்<span class="sr"> · Schedule</span></h2>
+    <p class="invite">Join us for the celebrations</p>
+    <div class="divider" aria-hidden="true"><i></i><s></s><b class="dm"></b><s></s><i></i></div>
+    <ol class="sched">
+      <li><span class="t">11:00 AM</span><b class="dm" aria-hidden="true"></b><span class="e">Varaverpu</span></li>
+      <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced</span></li>
+      <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced</span></li>
+      <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced</span></li>
+      <li><span class="t">12:30 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Lunch</span></li>
+      <li><span class="t">1:00 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Ring Ceremony</span></li>
+      <li><span class="t">1:10 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Cake Cutting</span></li>
+    </ol>
   </section>
 
   <p class="foot">LALETA PREETA &amp; PRADEEP<span class="fdot"> · </span><span class="fdate">14.12.2026</span></p>

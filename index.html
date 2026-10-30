@@ -124,6 +124,10 @@ body{
 .mo-btn.pop .mo{animation:cakepop .6s ease}
 @keyframes wig{0%,100%{transform:none}20%{transform:rotate(-12deg) scale(1.1)}40%{transform:rotate(10deg) scale(1.1)}60%{transform:rotate(-6deg)}80%{transform:rotate(4deg)}}
 @keyframes cakepop{0%{transform:none}30%{transform:scale(1.5) rotate(-8deg)}60%{transform:scale(.92) rotate(4deg)}100%{transform:none}}
+.mo-btn[data-fx=welcome].pop .mo{animation:pour .9s ease}
+.mo-btn[data-fx=rings].pop .mo{animation:clink .7s ease}
+@keyframes pour{0%{transform:none}35%{transform:rotate(-28deg) translateY(-2px)}65%{transform:rotate(-22deg)}100%{transform:none}}
+@keyframes clink{0%{transform:none}25%{transform:scale(1.4)}40%{transform:scale(1.4) rotate(-10deg)}55%{transform:scale(1.4) rotate(10deg)}75%{transform:scale(1.15)}100%{transform:none}}
 .fx{position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:50}
 .menu-btn{display:inline-flex; align-items:center; gap:.35em; margin:-.6em 0 -.6em .7em; vertical-align:.12em; padding:.32em .75em .32em .5em; font-family:var(--serif); font-weight:700; font-size:max(12px, calc(22 * var(--u))); line-height:1; letter-spacing:.14em; text-transform:uppercase; color:var(--maroon); background:rgba(255,251,243,.8); border:1px solid var(--gold); border-radius:6px; box-shadow:0 1px 0 rgba(142,106,43,.25); cursor:pointer; transition:background .2s, transform .2s}
 .menu-btn svg{width:1.45em; height:1.45em; color:var(--gold-d)}
@@ -224,14 +228,14 @@ body{
     <p class="invite">Join us for the celebrations</p>
     <div class="divider" aria-hidden="true"><i></i><s></s><b class="dm"></b><s></s><i></i></div>
     <ol class="sched">
-      <li><span class="t">11:00 AM</span><b class="dm" aria-hidden="true"></b><span class="e">Varaverpu<svg class="mo" aria-hidden="true"><use href="#mo-kalasam"/></svg></span></li>
+      <li><span class="t">11:00 AM</span><b class="dm" aria-hidden="true"></b><span class="e">Varaverpu<button class="mo-btn" type="button" data-fx="welcome" aria-label="Tap for a welcome flower shower"><svg class="mo" aria-hidden="true"><use href="#mo-kalasam"/></svg></button></span></li>
       <li><span class="t">11:00 AM</span><b class="dm" aria-hidden="true"></b><span class="e">Snacks<button class="menu-btn" type="button" data-dlg="snackDlg" aria-haspopup="dialog" aria-controls="snackDlg"><svg aria-hidden="true"><use href="#mo-leaf"/></svg>Menu</button></span></li>
       <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced<svg class="mo" aria-hidden="true"><use href="#mo-lotus"/></svg></span></li>
       <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced<svg class="mo" aria-hidden="true"><use href="#mo-lotus"/></svg></span></li>
       <li><span class="t"><span aria-hidden="true">— : —</span><span class="sr">Time to be announced</span></span><b class="dm" aria-hidden="true"></b><span class="e">To be announced<svg class="mo" aria-hidden="true"><use href="#mo-lotus"/></svg></span></li>
       <li><span class="t">12:30 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Lunch<button class="menu-btn" type="button" data-dlg="lunchDlg" aria-haspopup="dialog" aria-controls="lunchDlg"><svg aria-hidden="true"><use href="#mo-leaf"/></svg>Menu</button></span></li>
-      <li><span class="t">1:00 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Ring Ceremony<svg class="mo" aria-hidden="true"><use href="#mo-rings"/></svg></span></li>
-      <li><span class="t">1:10 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Cake Cutting<button class="mo-btn" id="cakeBtn" type="button" aria-label="Tap to celebrate"><svg class="mo" aria-hidden="true"><use href="#mo-cake"/></svg></button></span></li>
+      <li><span class="t">1:00 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Ring Ceremony<button class="mo-btn" type="button" data-fx="rings" aria-label="Tap to celebrate the rings"><svg class="mo" aria-hidden="true"><use href="#mo-rings"/></svg></button></span></li>
+      <li><span class="t">1:10 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Cake Cutting<button class="mo-btn" id="cakeBtn" type="button" data-fx="cake" aria-label="Tap to celebrate"><svg class="mo" aria-hidden="true"><use href="#mo-cake"/></svg></button></span></li>
     </ol>
   </section>
 
@@ -353,35 +357,56 @@ body{
     else{window.open('https://wa.me/?text='+encodeURIComponent(msg+'\n'+url),'_blank','noopener')}
   };
 
-  // Cake: tap for a burst of petals, sparkles and hearts
-  var cake=document.getElementById('cakeBtn'),fx=null,fc,P=[],running=false;
+  // Motif effects: tap the kalasam (flower shower), rings (hearts and sparkles) or cake (burst)
+  var fx=null,fc,P=[],running=false,mbs=[].slice.call(document.querySelectorAll('.mo-btn'));
+  var COL={mari:['#E9762A','#F3A83A','#F7BE55','#F09A35'],lotus:['#E7A3A0','#F2C6C2','#EBB2AE'],gold:['#D9BC74','#B38A3D','#F4E3B0'],heart:['#6A1B29','#C0392B','#E7A3A0'],jas:['#FFFFFF','#FFFAF0','#FFF6E0'],rice:['#EBD9A6','#E3CB8C','#F3E3B6']};
+  function pick(a){return a[Math.random()*a.length|0]}
   function sizeFx(){var d=Math.min(2,window.devicePixelRatio||1);fx.width=innerWidth*d;fx.height=innerHeight*d;fc.setTransform(d,0,0,d,0,0)}
-  function part(x,y,vx,vy,rain){var r=Math.random(),k=r<.42?0:r<.62?1:r<.82?2:3;
-    return {x:x,y:y,vx:vx,vy:vy,k:k,s:k===2?4+Math.random()*4:k===3?5+Math.random()*3:5+Math.random()*5,a:Math.random()*6.3,va:(Math.random()-.5)*.25,w:Math.random()*6.3,
-      c:k===0?['#E9762A','#F3A83A','#F7BE55','#F09A35'][Math.random()*4|0]:k===1?['#E7A3A0','#F2C6C2','#EBB2AE'][Math.random()*3|0]:k===2?['#D9BC74','#B38A3D','#F4E3B0'][Math.random()*3|0]:['#6A1B29','#C0392B','#E7A3A0'][Math.random()*3|0],
-      life:0,max:rain?260:170+Math.random()*60,g:rain?.035:.2}}
-  function draw(p,o){fc.save();fc.globalAlpha=o;fc.translate(p.x,p.y);fc.rotate(p.a);fc.fillStyle=p.c;fc.beginPath();
-    if(p.k<2){fc.ellipse(0,0,p.s,p.s*.45*(.6+.4*Math.abs(Math.sin(p.w))),0,0,6.3)}
-    else if(p.k===2){var s=p.s;fc.moveTo(0,-s);fc.quadraticCurveTo(s*.18,-s*.18,s,0);fc.quadraticCurveTo(s*.18,s*.18,0,s);fc.quadraticCurveTo(-s*.18,s*.18,-s,0);fc.quadraticCurveTo(-s*.18,-s*.18,0,-s)}
-    else{var h=p.s;fc.moveTo(0,h*.35);fc.bezierCurveTo(-h*1.2,-h*.4,-h*.45,-h*1.2,0,-h*.45);fc.bezierCurveTo(h*.45,-h*1.2,h*1.2,-h*.4,0,h*.35)}
+  function add(o){var p={life:0,a:Math.random()*6.3,va:(Math.random()-.5)*.25,w:Math.random()*6.3,sway:.6,drag:.985,g:.2,max:200,vx:0,vy:0};for(var k in o)p[k]=o[k];P.push(p)}
+  function mix(k){return k<.42?['petal',pick(COL.mari)]:k<.62?['petal',pick(COL.lotus)]:k<.82?['spark',pick(COL.gold)]:['heart',pick(COL.heart)]}
+  function draw(p,o){var s=p.s;fc.save();fc.globalAlpha=o;fc.translate(p.x,p.y);
+    if(p.t==='ring'){fc.strokeStyle=p.c;fc.lineWidth=1.6;fc.beginPath();fc.arc(0,0,p.r,0,6.3);fc.stroke();fc.restore();return}
+    fc.rotate(p.a);fc.fillStyle=p.c;fc.beginPath();
+    if(p.t==='petal'){fc.ellipse(0,0,s,s*.45*(.6+.4*Math.abs(Math.sin(p.w))),0,0,6.3)}
+    else if(p.t==='rice'){fc.ellipse(0,0,s,s*.36,0,0,6.3);fc.fill();fc.strokeStyle='rgba(142,106,43,.6)';fc.lineWidth=.7;fc.stroke();fc.restore();return}
+    else if(p.t==='spark'){fc.moveTo(0,-s);fc.quadraticCurveTo(s*.18,-s*.18,s,0);fc.quadraticCurveTo(s*.18,s*.18,0,s);fc.quadraticCurveTo(-s*.18,s*.18,-s,0);fc.quadraticCurveTo(-s*.18,-s*.18,0,-s)}
+    else if(p.t==='heart'){fc.moveTo(0,s*.35);fc.bezierCurveTo(-s*1.2,-s*.4,-s*.45,-s*1.2,0,-s*.45);fc.bezierCurveTo(s*.45,-s*1.2,s*1.2,-s*.4,0,s*.35)}
+    else if(p.t==='jas'){for(var k=0;k<5;k++){fc.rotate(1.2566);fc.moveTo(s*.3,-s*.55);fc.ellipse(0,-s*.55,s*.3,s*.55,0,0,6.3)}fc.fill();fc.strokeStyle='rgba(179,138,61,.6)';fc.lineWidth=.7;fc.stroke();fc.fillStyle='#F2C94C';fc.beginPath();fc.arc(0,0,s*.18,0,6.3)}
     fc.fill();fc.restore()}
   function tick(){fc.clearRect(0,0,innerWidth,innerHeight);
-    P=P.filter(function(p){p.life++;p.vy+=p.g;p.vx*=.985;p.vy*=p.vy>0?.985:.99;p.w+=.12;p.x+=p.vx+Math.sin(p.w)*(p.k<2?.6:.15);p.y+=p.vy;p.a+=p.va;
-      var o=Math.min(1,(p.max-p.life)/40);if(o<=0||p.y>innerHeight+30)return false;draw(p,o);return true});
+    P=P.filter(function(p){p.life++;
+      if(p.t==='ring'){p.r+=p.vr;p.vr*=.97}
+      else{p.vy+=p.g;p.vx*=p.drag;p.vy*=p.vy>0?p.drag:.99;p.w+=.12;p.x+=p.vx+Math.sin(p.w)*p.sway;p.y+=p.vy;p.a+=p.va}
+      var o=Math.min(1,(p.max-p.life)/40);if(o<=0||(p.vy>0&&p.y>innerHeight+40)||(p.vy<0&&p.y<-80))return false;draw(p,o);return true});
     if(P.length)requestAnimationFrame(tick);else{running=false;fx.style.display='none'}}
-  function celebrate(){
-    cake.classList.remove('pop','hint');void cake.offsetWidth;cake.classList.add('pop');
+  function fxGo(b){
+    b.classList.remove('pop','hint');void b.offsetWidth;b.classList.add('pop');
     if(navigator.vibrate)try{navigator.vibrate(25)}catch(e){}
     if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
     if(!fx){fx=document.createElement('canvas');fx.className='fx';fx.setAttribute('aria-hidden','true');document.body.appendChild(fx);fc=fx.getContext('2d');addEventListener('resize',function(){if(running)sizeFx()})}
     fx.style.display='block';sizeFx();
-    var r=cake.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,i,a,v;
-    for(i=0;i<110;i++){a=-Math.PI/2+(Math.random()-.5)*1.9;v=5+Math.random()*9;P.push(part(x,y,Math.cos(a)*v,Math.sin(a)*v,false))}
-    for(i=0;i<70;i++)P.push(part(Math.random()*innerWidth,-20-Math.random()*innerHeight*.5,(Math.random()-.5)*.8,1+Math.random()*1.5,true));
+    var r=b.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,W=innerWidth,H=innerHeight,i,a,v,k,m=b.getAttribute('data-fx'),t;
+    if(m==='welcome'){
+      // pushpa vrishti: jasmine, rose and marigold petals with rice grains drifting down, and akshathai tossed up from the kalasam
+      add({t:'ring',x:x,y:y,r:6,vr:4,c:'#B38A3D',max:45});add({t:'ring',x:x,y:y,r:2,vr:2.6,c:'#D9BC74',max:55});
+      for(i=0;i<130;i++){k=Math.random();add({x:Math.random()*W,y:-10-Math.random()*H*.45,vx:(Math.random()-.5)*.6,vy:1.4+Math.random()*1.4,g:.025,drag:.99,sway:.9,max:340,
+        t:k<.4?'jas':k<.85?'petal':'rice',c:k<.4?pick(COL.jas):k<.62?pick(COL.lotus):k<.85?pick(COL.mari):pick(COL.rice),s:k<.4?5+Math.random()*3:k<.85?5+Math.random()*4:3+Math.random()*1.5})}
+      for(i=0;i<36;i++){a=-Math.PI/2+(Math.random()-.5)*1.4;v=4+Math.random()*6;k=Math.random();add({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,g:.18,max:150,t:k<.6?'rice':'jas',c:k<.6?pick(COL.rice):pick(COL.jas),s:k<.6?3+Math.random()*1.5:4+Math.random()*2})}
+    }else if(m==='rings'){
+      // diamond glints all round the rings, and hearts floating up
+      add({t:'ring',x:x,y:y,r:6,vr:4.5,c:'#B38A3D',max:45});add({t:'ring',x:x,y:y,r:2,vr:3,c:'#D9BC74',max:55});
+      for(i=0;i<28;i++){a=Math.random()*6.283;v=2.5+Math.random()*5;add({t:'spark',x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,g:.03,drag:.94,sway:.1,max:90+Math.random()*40,c:pick(COL.gold),s:4+Math.random()*5})}
+      for(i=0;i<34;i++){add({t:'heart',x:x+(Math.random()-.5)*60,y:y,vx:(Math.random()-.5)*2.5,vy:-(1.5+Math.random()*2.5),g:-.015,drag:.99,sway:.9,a:(Math.random()-.5)*.5,va:(Math.random()-.5)*.04,max:200+Math.random()*80,c:pick(COL.heart),s:6+Math.random()*6})}
+      for(i=0;i<26;i++){add({t:'heart',x:Math.random()*W,y:H+20+Math.random()*H*.4,vx:(Math.random()-.5)*.6,vy:-(1.2+Math.random()*1.6),g:-.01,drag:.995,sway:.8,a:(Math.random()-.5)*.4,va:(Math.random()-.5)*.03,max:360,c:pick(COL.heart),s:7+Math.random()*7})}
+    }else{
+      // cake: burst of petals, sparkles and hearts, with a petal shower from the top
+      for(i=0;i<110;i++){a=-Math.PI/2+(Math.random()-.5)*1.9;v=5+Math.random()*9;t=mix(Math.random());add({x:x,y:y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,t:t[0],c:t[1],s:t[0]==='spark'?4+Math.random()*4:t[0]==='heart'?5+Math.random()*3:5+Math.random()*5,max:170+Math.random()*60})}
+      for(i=0;i<70;i++){t=mix(Math.random());add({x:Math.random()*W,y:-20-Math.random()*H*.5,vx:(Math.random()-.5)*.8,vy:1+Math.random()*1.5,g:.035,t:t[0],c:t[1],s:t[0]==='spark'?4+Math.random()*4:t[0]==='heart'?5+Math.random()*3:5+Math.random()*5,max:260})}
+    }
     if(!running){running=true;requestAnimationFrame(tick)}
   }
-  cake.onclick=celebrate;
-  if('IntersectionObserver' in window){var ho=new IntersectionObserver(function(es){if(es[0].isIntersecting){setTimeout(function(){cake.classList.add('hint')},700);ho.disconnect()}},{threshold:1});ho.observe(cake)}
+  mbs.forEach(function(b){b.onclick=function(){fxGo(b)}});
+  if('IntersectionObserver' in window){var ho=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var b=e.target;setTimeout(function(){b.classList.add('hint')},500+mbs.indexOf(b)*350);ho.unobserve(b)}})},{threshold:1});mbs.forEach(function(b){ho.observe(b)})}
 
   // Menus (snacks, lunch)
   document.querySelectorAll('[data-dlg]').forEach(function(b){b.onclick=function(){var d=document.getElementById(b.getAttribute('data-dlg'));if(d.showModal)d.showModal();else d.setAttribute('open','')}});

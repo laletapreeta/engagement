@@ -108,10 +108,11 @@ body{
 .cal-pop a:hover,.cal-pop button:hover{background:rgba(179,138,61,.12)}
 .events{margin-top:calc(130 * var(--u))}
 .events .divider{margin-top:calc(13.9 * var(--u))}
-.sched{list-style:none; padding:0; margin:calc(35.7 * var(--u)) auto 0; max-width:calc(1100 * var(--u)); display:grid; grid-template-columns:minmax(0,1fr) calc(14 * var(--u)) minmax(0,1fr); column-gap:calc(23 * var(--u)); row-gap:calc(67.2 * var(--u))}
+/* schedule: times | dots | events as one block, centred as a whole (the dots stay in one line) */
+.sched{list-style:none; padding:0; margin:calc(35.7 * var(--u)) auto 0; max-width:calc(1100 * var(--u)); display:grid; grid-template-columns:max-content calc(14 * var(--u)) max-content; justify-content:center; align-items:baseline; column-gap:calc(23 * var(--u)); row-gap:calc(67.2 * var(--u))}
 .sched li{display:grid; grid-column:1 / -1; grid-template-columns:subgrid; align-items:baseline}
-@supports not (grid-template-columns:subgrid){.sched li{grid-template-columns:minmax(0,1fr) calc(14 * var(--u)) minmax(0,1fr); column-gap:calc(23 * var(--u))}}
-@media (max-width:540px){.sched{grid-template-columns:max-content calc(14 * var(--u)) max-content; justify-content:center; column-gap:calc(20 * var(--u))}}
+@supports not (grid-template-columns:subgrid){.sched li{display:contents}}
+@media (max-width:540px){.sched{column-gap:calc(20 * var(--u))}}
 .sched .t{font-family:var(--caps); font-size:calc(40 * var(--u)); line-height:1.2; color:var(--gold-d); text-align:right; white-space:nowrap}
 .sched .e{font-weight:700; font-size:calc(44 * var(--u)); line-height:1.2; color:var(--maroon); text-align:left; white-space:nowrap}
 .mo{display:inline-block; width:1.15em; height:1.15em; vertical-align:-.2em; margin-left:.4em; color:var(--gold)}

@@ -367,7 +367,7 @@ body{
   var shareFiles=null,shareAsked=false;
   function prepShare(){
     if(shareAsked||!navigator.canShare||!window.File||!window.fetch)return;shareAsked=true;
-    Promise.all([1,2].map(function(i){return fetch('invitation-'+i+'.jpg?v=11').then(function(r){if(!r.ok)throw r.status;return r.blob()}).then(function(b){return new File([b],'Laleta-Pradeep-Engagement-'+i+'.jpg',{type:b.type||'image/jpeg'})})}))
+    Promise.all([1,2].map(function(i){return fetch('invitation-'+i+'.jpg?v=12').then(function(r){if(!r.ok)throw r.status;return r.blob()}).then(function(b){return new File([b],'Laleta-Pradeep-Engagement-'+i+'.jpg',{type:b.type||'image/jpeg'})})}))
       .then(function(fs){try{if(navigator.canShare({files:fs}))shareFiles=fs}catch(e){}}).catch(function(){});
   }
   var acts=document.querySelector('.actions');

@@ -111,15 +111,23 @@ body{
 /* schedule: zigzag timeline - gold line down the middle, motifs on the line, events alternate left and right */
 .sched{--z:min(var(--u), (min(760px, 100vw) - 60px) / 860); position:relative; list-style:none; padding:0; margin:calc(30 * var(--u)) auto 0}
 .sched::before{content:""; position:absolute; left:50%; top:calc(59 * var(--z)); bottom:calc(59 * var(--z)); width:1.5px; margin-left:-.75px; background:var(--gold); opacity:.6}
-.sched li{position:relative; display:grid; grid-template-columns:minmax(0,1fr) calc(76 * var(--z)) minmax(0,1fr); column-gap:calc(24 * var(--z)); align-items:center; min-height:calc(118 * var(--z))}
-.sched .nd{grid-column:2; grid-row:1; justify-self:center; position:relative; z-index:1; width:calc(76 * var(--z)); height:calc(76 * var(--z)); border-radius:50%; background:#FBF3E1; border:1.5px solid var(--gold-l); display:flex; align-items:center; justify-content:center; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent}
-.sched .nd .mo{width:calc(54 * var(--z)); height:calc(54 * var(--z)); margin:0; vertical-align:0}
+.sched li{position:relative; display:grid; grid-template-columns:minmax(0,1fr) calc(88 * var(--z)) minmax(0,1fr); column-gap:calc(24 * var(--z)); align-items:center; min-height:calc(118 * var(--z))}
+.sched .nd{grid-column:2; grid-row:1; justify-self:center; position:relative; z-index:1; width:calc(88 * var(--z)); height:calc(88 * var(--z)); border-radius:50%; background:radial-gradient(circle at 38% 30%, #FFFDF7 0%, #FBF0D4 55%, #EAD39C 100%); border:2px solid var(--gold); box-shadow:0 3px 7px -1px rgba(106,27,41,.38), inset 0 1px 0 rgba(255,255,255,.9), inset 0 -2px 4px rgba(179,138,61,.3); transition:transform .12s ease, box-shadow .12s ease; display:flex; align-items:center; justify-content:center; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent}
+.sched .nd .mo{width:calc(60 * var(--z)); height:calc(60 * var(--z)); margin:0; vertical-align:0}
 .sched .tx{grid-row:1; display:block}
 .sched li:nth-child(odd) .tx{grid-column:1; text-align:right}
 .sched li:nth-child(even) .tx{grid-column:3; text-align:left}
 .sched .t{display:block; font-family:var(--caps); font-size:max(11px, calc(28 * var(--z))); letter-spacing:.1em; line-height:1.2; color:var(--gold-d)}
 .sched .e{display:block; font-weight:700; font-size:calc(44 * var(--z)); line-height:1.15; color:var(--maroon); white-space:nowrap}
 .nd[data-dlg].pop .mo{animation:wig .6s ease}
+/* tap affordance: raised button that sinks when pressed + gentle gold pulse ring + hint line */
+.sched .nd:active{transform:translateY(2px) scale(.96); box-shadow:0 1px 2px rgba(106,27,41,.3), inset 0 2px 5px rgba(179,138,61,.45)}
+.sched .nd::after{content:""; position:absolute; inset:-1.5px; border-radius:50%; border:1.5px solid var(--gold); opacity:0; pointer-events:none; animation:ring 3.6s ease-out infinite}
+.sched li:nth-child(2) .nd::after{animation-delay:.4s} .sched li:nth-child(3) .nd::after{animation-delay:.8s} .sched li:nth-child(4) .nd::after{animation-delay:1.2s}
+.sched li:nth-child(5) .nd::after{animation-delay:1.6s} .sched li:nth-child(6) .nd::after{animation-delay:2s} .sched li:nth-child(7) .nd::after{animation-delay:2.4s}
+@keyframes ring{0%{transform:scale(1); opacity:.8}75%,100%{transform:scale(1.55); opacity:0}}
+@media (prefers-reduced-motion:reduce){.sched .nd::after{animation:none}}
+.tap-hint{font-style:italic; font-size:max(13px, calc(28 * var(--u))); color:var(--gold-d); margin-top:calc(14 * var(--u)); letter-spacing:.02em}
 .mo{display:inline-block; width:1.15em; height:1.15em; vertical-align:-.2em; margin-left:.4em; color:var(--gold)}
 .mo-btn{position:relative; appearance:none; border:0; background:none; padding:0; margin:0; font:inherit; color:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent}
 .mo-btn::before{content:""; position:absolute; inset:-10px -10px -10px -2px}
@@ -240,6 +248,7 @@ body{
     <h2 class="tamil-title">நிகழ்ச்சிகள்<span class="sr"> · Schedule</span></h2>
     <p class="invite">Join us for the celebrations</p>
     <div class="divider" aria-hidden="true"><i></i><s></s><b class="dm"></b><s></s><i></i></div>
+    <p class="tap-hint">✦  tap the icons  ✦</p>
     <ol class="sched">
       <li><span class="tx"><span class="t">10:15 AM</span><span class="e">Varaverpu</span></span><button class="nd mo-btn" type="button" data-fx="welcome" aria-label="Tap for a welcome flower shower"><svg class="mo" aria-hidden="true"><use href="#mo-kalasam"/></svg></button></li>
       <li><span class="tx"><span class="t">10:30 AM</span><span class="e">Fun Events</span></span><button class="nd mo-btn" type="button" data-fx="fun" aria-label="Tap for confetti"><svg class="mo" aria-hidden="true"><use href="#mo-popper"/></svg></button></li>

@@ -108,13 +108,18 @@ body{
 .cal-pop a:hover,.cal-pop button:hover{background:rgba(179,138,61,.12)}
 .events{margin-top:calc(130 * var(--u))}
 .events .divider{margin-top:calc(13.9 * var(--u))}
-/* schedule: times | dots | events as one block, centred as a whole (the dots stay in one line) */
-.sched{list-style:none; padding:0; margin:calc(35.7 * var(--u)) auto 0; max-width:calc(1100 * var(--u)); display:grid; grid-template-columns:max-content calc(14 * var(--u)) max-content; justify-content:center; align-items:baseline; column-gap:calc(23 * var(--u)); row-gap:calc(67.2 * var(--u))}
-.sched li{display:grid; grid-column:1 / -1; grid-template-columns:subgrid; align-items:baseline}
-@supports not (grid-template-columns:subgrid){.sched li{display:contents}}
-@media (max-width:540px){.sched{column-gap:calc(20 * var(--u))}}
-.sched .t{font-family:var(--caps); font-size:calc(40 * var(--u)); line-height:1.2; color:var(--gold-d); text-align:right; white-space:nowrap}
-.sched .e{font-weight:700; font-size:calc(44 * var(--u)); line-height:1.2; color:var(--maroon); text-align:left; white-space:nowrap}
+/* schedule: zigzag timeline - gold line down the middle, motifs on the line, events alternate left and right */
+.sched{--z:min(var(--u), (min(760px, 100vw) - 60px) / 860); position:relative; list-style:none; padding:0; margin:calc(30 * var(--u)) auto 0}
+.sched::before{content:""; position:absolute; left:50%; top:calc(59 * var(--z)); bottom:calc(59 * var(--z)); width:1.5px; margin-left:-.75px; background:var(--gold); opacity:.6}
+.sched li{position:relative; display:grid; grid-template-columns:minmax(0,1fr) calc(76 * var(--z)) minmax(0,1fr); column-gap:calc(24 * var(--z)); align-items:center; min-height:calc(118 * var(--z))}
+.sched .nd{grid-column:2; grid-row:1; justify-self:center; position:relative; z-index:1; width:calc(76 * var(--z)); height:calc(76 * var(--z)); border-radius:50%; background:#FBF3E1; border:1.5px solid var(--gold-l); display:flex; align-items:center; justify-content:center; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent}
+.sched .nd .mo{width:calc(54 * var(--z)); height:calc(54 * var(--z)); margin:0; vertical-align:0}
+.sched .tx{grid-row:1; display:block}
+.sched li:nth-child(odd) .tx{grid-column:1; text-align:right}
+.sched li:nth-child(even) .tx{grid-column:3; text-align:left}
+.sched .t{display:block; font-family:var(--caps); font-size:max(11px, calc(28 * var(--z))); letter-spacing:.1em; line-height:1.2; color:var(--gold-d)}
+.sched .e{display:block; font-weight:700; font-size:calc(44 * var(--z)); line-height:1.15; color:var(--maroon); white-space:nowrap}
+.sched .tx .menu-btn{margin:.45em 0 0; vertical-align:0}
 .mo{display:inline-block; width:1.15em; height:1.15em; vertical-align:-.2em; margin-left:.4em; color:var(--gold)}
 .mo-btn{position:relative; appearance:none; border:0; background:none; padding:0; margin:0; font:inherit; color:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent}
 .mo-btn::before{content:""; position:absolute; inset:-10px -10px -10px -2px}
@@ -160,7 +165,6 @@ body{
 .menu-time{font-family:var(--caps); color:var(--gold-d); font-size:14px; letter-spacing:.1em; margin-top:2px}
 .menu-x{position:absolute; top:12px; right:14px; z-index:2; width:40px; height:40px; border:0; background:none; font:inherit; font-size:30px; line-height:1; color:var(--gold-d); cursor:pointer}
 .menu-x:focus-visible{outline:2px solid var(--gold-d); outline-offset:-4px}
-.sched .dm{width:calc(14 * var(--u)); height:calc(14 * var(--u)); min-width:6px; min-height:6px; align-self:center; justify-self:center}
 .foot{position:relative; z-index:5; font-weight:700; color:var(--gold-d); letter-spacing:.125em; font-size:max(11px, calc(22.67 * var(--u))); max-width:62%; margin-top:calc(100 * var(--u))}
 .bottom{height:0; padding-top:26%}
 .flora{position:absolute; left:0; bottom:0; width:100%; height:auto; z-index:4; pointer-events:none; user-select:none}
@@ -237,13 +241,13 @@ body{
     <p class="invite">Join us for the celebrations</p>
     <div class="divider" aria-hidden="true"><i></i><s></s><b class="dm"></b><s></s><i></i></div>
     <ol class="sched">
-      <li><span class="t">10:15 AM</span><b class="dm" aria-hidden="true"></b><span class="e">Varaverpu<button class="mo-btn" type="button" data-fx="welcome" aria-label="Tap for a welcome flower shower"><svg class="mo" aria-hidden="true"><use href="#mo-kalasam"/></svg></button></span></li>
-      <li><span class="t">10:30 AM</span><b class="dm" aria-hidden="true"></b><span class="e">Fun Events<button class="mo-btn" type="button" data-fx="fun" aria-label="Tap for confetti"><svg class="mo" aria-hidden="true"><use href="#mo-popper"/></svg></button></span></li>
-      <li><span class="t">11:00 AM</span><b class="dm" aria-hidden="true"></b><span class="e">Sips &amp; Bites<button class="menu-btn" type="button" data-dlg="snackDlg" aria-haspopup="dialog" aria-controls="snackDlg"><svg aria-hidden="true"><use href="#mo-leaf"/></svg>Menu</button></span></li>
-      <li><span class="t">12:00 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Engagement<button class="mo-btn" type="button" data-fx="engage" aria-label="Tap to celebrate the engagement"><svg class="mo" aria-hidden="true"><use href="#mo-thamboolam"/></svg></button></span></li>
-      <li><span class="t">12:30 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Virundhu<button class="menu-btn" type="button" data-dlg="lunchDlg" aria-haspopup="dialog" aria-controls="lunchDlg"><svg aria-hidden="true"><use href="#mo-leaf"/></svg>Menu</button></span></li>
-      <li><span class="t">1:00 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Ring Ceremony<button class="mo-btn" type="button" data-fx="rings" aria-label="Tap to celebrate the rings"><svg class="mo" aria-hidden="true"><use href="#mo-rings"/></svg></button></span></li>
-      <li><span class="t">1:10 PM</span><b class="dm" aria-hidden="true"></b><span class="e">Cake &amp; Celebrations<button class="mo-btn" type="button" data-fx="cake" aria-label="Tap to celebrate"><svg class="mo" aria-hidden="true"><use href="#mo-cake"/></svg></button></span></li>
+      <li><span class="tx"><span class="t">10:15 AM</span><span class="e">Varaverpu</span></span><button class="nd mo-btn" type="button" data-fx="welcome" aria-label="Tap for a welcome flower shower"><svg class="mo" aria-hidden="true"><use href="#mo-kalasam"/></svg></button></li>
+      <li><span class="tx"><span class="t">10:30 AM</span><span class="e">Fun Events</span></span><button class="nd mo-btn" type="button" data-fx="fun" aria-label="Tap for confetti"><svg class="mo" aria-hidden="true"><use href="#mo-popper"/></svg></button></li>
+      <li><span class="tx"><span class="t">11:00 AM</span><span class="e">Sips &amp; Bites</span><button class="menu-btn" type="button" data-dlg="snackDlg" aria-haspopup="dialog" aria-controls="snackDlg"><svg aria-hidden="true"><use href="#mo-leaf"/></svg>Menu</button></span><button class="nd" type="button" data-dlg="snackDlg" aria-haspopup="dialog" aria-label="Open the Sips &amp; Bites menu"><svg class="mo" aria-hidden="true"><use href="#mo-leaf"/></svg></button></li>
+      <li><span class="tx"><span class="t">12:00 PM</span><span class="e">Engagement</span></span><button class="nd mo-btn" type="button" data-fx="engage" aria-label="Tap to celebrate the engagement"><svg class="mo" aria-hidden="true"><use href="#mo-thamboolam"/></svg></button></li>
+      <li><span class="tx"><span class="t">12:30 PM</span><span class="e">Virundhu</span><button class="menu-btn" type="button" data-dlg="lunchDlg" aria-haspopup="dialog" aria-controls="lunchDlg"><svg aria-hidden="true"><use href="#mo-leaf"/></svg>Menu</button></span><button class="nd" type="button" data-dlg="lunchDlg" aria-haspopup="dialog" aria-label="Open the Virundhu menu"><svg class="mo" aria-hidden="true"><use href="#mo-leaf"/></svg></button></li>
+      <li><span class="tx"><span class="t">1:00 PM</span><span class="e">Ring Ceremony</span></span><button class="nd mo-btn" type="button" data-fx="rings" aria-label="Tap to celebrate the rings"><svg class="mo" aria-hidden="true"><use href="#mo-rings"/></svg></button></li>
+      <li><span class="tx"><span class="t">1:10 PM</span><span class="e">Cake &amp; Celebrations</span></span><button class="nd mo-btn" type="button" data-fx="cake" aria-label="Tap to celebrate"><svg class="mo" aria-hidden="true"><use href="#mo-cake"/></svg></button></li>
     </ol>
   </section>
 
